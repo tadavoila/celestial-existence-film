@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  </head>
+  <body>
+    <script>
+      const numDots = 1000;
+      const dotSize = 4;
+      const dotSpeed = 2;
+      const dotColor = [0, 255, 255]; // Neon blue
+
+      let dots = [];
+
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        for (let i = 0; i < numDots; i++) {
+          const x = random(width);
+          const y = random(height);
+          const dx = random(-dotSpeed, dotSpeed);
+          const dy = random(-dotSpeed, dotSpeed);
+          dots.push(new Dot(x, y, dx, dy));
+        }
+      }
+
+      function draw() {
+        background(0);
+
+        for (let i = 0; i < dots.length; i++) {
+          dots[i].update();
+          dots[i].display();
+        }
+      }
+
+      class Dot {
+        constructor(x, y, dx, dy) {
+          this.x = x;
+          this.y = y;
+          this.dx = dx;
+          this.dy = dy;
+        }
+
+        update() {
+          this.x += this.dx;
+          this.y += this.dy;
+
+          if (this.x < 0 || this.x > width) {
+            this.dx *= -1;
+          }
+
+          if (this.y < 0 || this.y > height) {
+            this.dy *= -1;
+          }
+        }
+
+        display() {
+          fill(dotColor[0], dotColor[1], dotColor[2]);
+          noStroke();
+          ellipse(this.x, this.y, dotSize, dotSize);
+        }
+      }
+    </script>
+  </body>
+</html>

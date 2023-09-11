@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Neon Zentangles in p5.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script>
+      // Set up canvas
+      function setup() {
+        createCanvas(windowWidth, windowHeight);
+        fullscreen(true); // Set the canvas to fullscreen
+        background(0);
+        noFill();
+        strokeWeight(6);
+        frameRate(5);
+      }
+
+      // Draw zentangles
+      function draw() {
+        stroke(color(random(200, 255), random(0, 255), random(200, 255)));
+
+        for (let i = 0; i < 3; i++) {
+          let x = random(50, width - 50);
+          let y = random(50, height - 50);
+          let size = random(20, 100);
+          zentangle(x, y, size);
+        }
+      }
+
+      // Draw a single zentangle
+      function zentangle(x, y, size) {
+        let angle = 0;
+        let increment = TWO_PI / 10;
+
+        beginShape();
+        for (let i = 0; i < 10; i++) {
+          let cx = x + cos(angle) * size;
+          let cy = y + sin(angle) * size;
+          vertex(cx, cy);
+          angle += increment;
+        }
+        endShape(CLOSE);
+      }
+    </script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+  </body>
+</html>
